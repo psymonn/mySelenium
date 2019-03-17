@@ -32,3 +32,4 @@ https://github.com/jenkinsci/pipeline-examples/blob/master/docs/BEST_PRACTICES.m
 https://jenkins.io/doc/pipeline/examples/
 https://jenkins.io/doc/book/pipeline/syntax/#parallel-stages-example
 https://stackoverflow.com/questions/46834998/scripted-jenkinsfile-parallel-stage
+https://jenkins.io/blog/2017/09/25/declarative-1/
