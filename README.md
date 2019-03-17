@@ -102,3 +102,7 @@ Note rule of thumb, the number of executor is based on your cpu (logical cpu or 
 agent1 might have 3 executors 
 agent2 might have 2 executors
 master agent might have 4 exectors
+
+Appium-jenkins demo src code:
+https://github.com/vbanthia/appium-jenkins-demo
+https://stackoverflow.com/questions/41829604/how-to-run-appium-test-scripts-through-jenkins
