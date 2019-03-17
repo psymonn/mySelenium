@@ -12,7 +12,8 @@ https://github.com/ObjectivityLtd/Test.Automation/wiki/Cross-browser-parallel-te
 
 video:
 https://www.google.com/search?client=firefox-b-ab&q=passing+parameters+to+nunit+test#kpvalbx=1
-https://www.google.com/search?client=firefox-b-ab&q=passing+parameters+to+nunit+test#kpvalbx=1
+https://www.youtube.com/watch?v=ZkMIO8111V0
+https://www.youtube.com/watch?v=hRjkr0gw7rw
 
 
 Java:
@@ -23,3 +24,11 @@ How to configure Selenium HTML Reports in Jenkins -> https://stackoverflow.com/q
 Nunit vs TestNG:
 Can NUnit stand up to TestNG -> https://stackoverflow.com/questions/5547216/can-nunit-stand-up-to-testng
 Why do we use TestNG rather than JUnit and NUnit? -> https://www.quora.com/Why-do-we-use-TestNG-rather-than-JUnit-and-NUnit
+
+
+Pipeline - Parallel execution of tasks:
+https://support.cloudbees.com/hc/en-us/articles/230922168-Pipeline-Parallel-execution-of-tasks
+https://github.com/jenkinsci/pipeline-examples/blob/master/docs/BEST_PRACTICES.md
+https://jenkins.io/doc/pipeline/examples/
+https://jenkins.io/doc/book/pipeline/syntax/#parallel-stages-example
+https://stackoverflow.com/questions/46834998/scripted-jenkinsfile-parallel-stage
