@@ -1,3 +1,4 @@
+function TestBrowsers {
 param(
    [String] $Args
 )
@@ -107,3 +108,4 @@ Start-Sleep -s 3
 
 $driver.Close();
 $driver.Dispose();
+}
