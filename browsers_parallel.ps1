@@ -1,3 +1,7 @@
+param(
+   [String] $Args
+)
+
 <# WebDrive dll#>
 Add-Type -Path "C:\Data\Git\Selenium\lib40\WebDriver.dll";
 
