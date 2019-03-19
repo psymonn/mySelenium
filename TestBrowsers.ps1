@@ -11,15 +11,15 @@ $browser = $Args -join " ";
 
 write-host "Browser chosen: $browser"
 
-$chromedriver_path = "F:\Data\Git\Selenium\lib40";
+$chromedriver_path = "C:\Data\Git\Selenium\lib40";
 
 <# The Internet Explorer Driver Server(32bit) #>
-$iedriver32_path   = "F:\Data\Git\Selenium\lib40";
+$iedriver32_path   = "C:\Data\Git\Selenium\lib40";
 
 <# The Internet Explorer Driver Server(64bit#>
-$iedriver64_path   = "F:\Data\Git\Selenium\lib40"
+$iedriver64_path   = "C:\Data\Git\Selenium\lib40"
 
-$MicrosoftWebDriver = "F:\Data\Git\Selenium\lib40";
+$MicrosoftWebDriver = "C:\Data\Git\Selenium\lib40";
 
 <# Selenium Grid HubのURL #>
 $selenium_grid_hub = New-Object System.Uri("http://eucdevjnk01:4444/wd/hub")
