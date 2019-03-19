@@ -1,4 +1,4 @@
-Function Run-PsFunc{
+Function TestBrowsers{
 	param($VariableA,$VariableB)
 
 #write-host "Well, did we get $Args passed in correctly?"
