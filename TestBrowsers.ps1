@@ -1,5 +1,5 @@
-Function RunBrowsers{
-	param($VariableA,$VariableB)
+Function TestBrowsers{
+	param($Args)
 
 #write-host "Well, did we get $Args passed in correctly?"
 write-host "Well, did we get $VariableA and $VariableB passed in correctly?"
