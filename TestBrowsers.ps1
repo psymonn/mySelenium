@@ -1,9 +1,8 @@
-Function TestBrowsers {
-param(
-   [String] $Args
-)
+Function Run-PsFunc{
+	param($VariableA,$VariableB)
 
-write-host "Well, did we get $Args passed in correctly?"
+#write-host "Well, did we get $Args passed in correctly?"
+write-host "Well, did we get $VariableA and $VariableB passed in correctly?"
 
 <# WebDrive dll#>
 Add-Type -Path "F:\Data\Git\Selenium\lib40\WebDriver.dll";
