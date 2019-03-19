@@ -7,7 +7,8 @@ write-host "Well, did we get $VariableA and $VariableB passed in correctly?"
 <# WebDrive dll#>
 Add-Type -Path "F:\Data\Git\Selenium\lib40\WebDriver.dll";
 
-$browser = $Args -join " ";
+#$browser = $Args -join " ";
+$browser = $Args;
 
 write-host "Browser chosen: $browser"
 
