@@ -1,7 +1,9 @@
-function TestBrowsers {
+Function TestBrowsers {
 param(
    [String] $Args
 )
+
+write-host "Well, did we get $Args passed in correctly?"
 
 <# WebDrive dll#>
 Add-Type -Path "F:\Data\Git\Selenium\lib40\WebDriver.dll";
