@@ -94,9 +94,10 @@ switch ($browser)
         }
     <# Mozilla Firefox #>
     default {
-            $browser = "Firefox";
-            $driver = New-Object OpenQA.Selenium.Firefox.FirefoxDriver;
+            #$browser = "Firefox";
+            #$driver = New-Object OpenQA.Selenium.Firefox.FirefoxDriver;
             #$driver.Manage().Window.Maximize();
+	    write-host "you have reached default!"
         }
 }
 
