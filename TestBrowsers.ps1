@@ -41,12 +41,12 @@ switch ($browser)
             #$driver.Manage().Window.Maximize();
         }
     <# Internet Explorer Win32#>
-    "ie 32" {
+    "ie32" {
             $driver = New-Object OpenQA.Selenium.IE.InternetExplorerDriver($iedriver32_path);
             #$driver.Manage().Window.Maximize();
         }
     <# Internet Explorer x64#>
-    "ie 64" {
+    "ie64" {
             $driver = New-Object OpenQA.Selenium.IE.InternetExplorerDriver($iedriver64_path);
             #$driver.Manage().Window.Maximize();
         }
@@ -66,7 +66,7 @@ switch ($browser)
             #$driver.Manage().Window.Maximize();
         }
     <# Goofle Chrome(Selenium Grid) #>
-    "Google Chrome Grid" {
+    "GoogleChromeGrid" {
             $capability = New-Object OpenQA.Selenium.Remote.DesiredCapabilities;
             $capability.SetCapability("browserName", "chrome");
             $capability.SetCapability("platform",    "WINDOWS");
@@ -75,7 +75,7 @@ switch ($browser)
             #$driver.Manage().Window.Maximize();
         }
     <# AndroidのGoofle Chrome(Selenium Grid) #>
-    "Android Grid" {
+    "AndroidGrid" {
             $options = @{}
             $options.Add("androidPackage", "com.android.chrome")
 
@@ -87,7 +87,7 @@ switch ($browser)
             $driver = New-Object OpenQA.Selenium.Remote.RemoteWebDriver($selenium_grid_hub, $capability);
         }
     <# Internet Explorer x64 (Selenium Grid) #>
-    "Internet Explorer Grid" {
+    "InternetExplorerGrid" {
             $capability = New-Object OpenQA.Selenium.Remote.DesiredCapabilities;
             $capability.SetCapability("browserName", "internet explorer");
             $capability.SetCapability("platform",    "WINDOWS");
