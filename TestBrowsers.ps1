@@ -9,6 +9,7 @@ Add-Type -Path "C:\Data\Git\Selenium\lib40\WebDriver.dll";
 
 $browser = $Args -join " ";
 
+write-host "Arugrments: $Args"
 write-host "Browser chosen: $browser"
 
 $chromedriver_path = "C:\Data\Git\Selenium\lib40";
