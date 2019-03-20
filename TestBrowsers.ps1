@@ -53,7 +53,7 @@ switch ($browser)
         }
 
     <# Mozilla Firefox(Selenium Grid) #>
-    "Mozilla Firefox Grid" {
+    "MozillaFirefoxGrid" {
             $capability = New-Object OpenQA.Selenium.Remote.DesiredCapabilities;
             $capability.SetCapability("browserName", "firefox");
             $capability.SetCapability("platform",    "WINDOWS");
