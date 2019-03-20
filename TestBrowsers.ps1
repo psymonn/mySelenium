@@ -104,26 +104,28 @@ try{
 		    write-host "you have reached default!"
 		}
 	
-	}catch [System.SystemException] {
+	
+	
+	}
+
+	<# Google #>
+	#$driver.Url = "http://www.google.co.jp/";
+
+	$base_url = 'http://www.google.com/'
+	$driver.Navigate().GoToUrl($base_url)
+	$driver.Navigate().Refresh()
+	#$driver.Manage().Window.Maximize()
+
+	Start-Sleep -s 3
+
+	$driver.Close();
+	$driver.Dispose();
+
+}catch [System.SystemException] {
        $ErrorMessage = $_.Exception.Message
        write-host $ErrorMessage
         $driver.Close();
         $driver.Dispose();
        exit 1
     }	
-	
-}
-
-<# Google #>
-#$driver.Url = "http://www.google.co.jp/";
-
-$base_url = 'http://www.google.com/'
-$driver.Navigate().GoToUrl($base_url)
-$driver.Navigate().Refresh()
-#$driver.Manage().Window.Maximize()
-
-Start-Sleep -s 3
-
-$driver.Close();
-$driver.Dispose();
 }
