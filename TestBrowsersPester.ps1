@@ -1,3 +1,4 @@
+
 # Describe "ValidateWebSite" {
  
 #     # Check if IIS is installed
@@ -61,7 +62,7 @@ Describe -Tag "UI","Public" -Name "Home" {
             
             (Find-SeElement -Driver $script:driver -Name "q").SendKeys("lookups")
             #(Find-SeElement -Driver $script:driver -Name "btnk").Submit() | Out-File "C:\Data\Git\Selenium\GoogleSearchResults.html" -Force
-            (Find-SeElement -Driver $script:driver -Name "btnk").Submit()
+         #   (Find-SeElement -Driver $script:driver -Name "btnk").Submit()
             
             #Wait-UntilElementLoaded -Driver $script:driver -ClassName "navbar-brand"
           
