@@ -62,7 +62,7 @@ Describe -Tag "UI","Public" -Name "$browser" {
             $script:driver = Start-SeChrome -Arguments "headless", "incognito"
         }
         
-        It "Search - Returns Results" {
+        It "$browser -> Search - Returns Results" {
             Enter-SeUrl -Driver $script:driver -Url $script:url
             
             (Find-SeElement -Driver $script:driver -Name "q").SendKeys("lookups")
@@ -101,7 +101,7 @@ Describe -Tag "UI","Public" -Name "$browser" {
             #Open-WebPage  "www.bing.com"
         }
         
-        It "ShouldFindCheesecakeFactoryByNameInBingSearch" {
+        It "$browser -> ShouldFindCheesecakeFactoryByNameInBingSearch" {
             Enter-SeUrl -Driver $script:driver -Url $script:url
             #Wait total of 30sec to find element by Css selector, further validate element exist in DOM 
             #Wait-UntilElementVisible -Selector Css -Value "#sb_form_q"
