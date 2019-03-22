@@ -1,3 +1,8 @@
+Function TestBrowsersPester{
+	#param($browser)
+param(
+   [String] $browser
+)
 
 # Describe "ValidateWebSite" {
  
@@ -24,7 +29,7 @@
 
 # https://gist.github.com/smaglio81/df4a7a5ed5bf8ebc3d859577536e4b27
 # http://stackoverflow.com/questions/1183183/path-of-currently-executing-powershell-script
-$root = Split-Path $MyInvocation.MyCommand.Path -Parent;
+#$root = Split-Path $MyInvocation.MyCommand.Path -Parent;
 #$moduleRoot = Resolve-Path "$PSScriptRoot\.."
 #$moduleName = Split-Path $moduleRoot -Leaf
 
@@ -43,9 +48,9 @@ if(-not $global:RunningInvokePester) {
 }
 
 
-Describe -Tag "UI","Public" -Name "Home" {
+Describe -Tag "UI","Public" -Name "$browser" {
     
-    Context "Simple Search 1" {
+    Context "$browser -> Simple Search 1" {
         BeforeAll {
             if($Environment -eq "prod") {
             $script:url = "https://somesite.{env}.subgroup.domain.com" -f $Environment
@@ -88,7 +93,7 @@ Describe -Tag "UI","Public" -Name "Home" {
         }
     }
 
-    Context "Simple Search 2" {
+    Context "$browser -> Simple Search 2 " {
         BeforeAll {
             $script:url = "https://www.bing.com"
             $script:driver = Start-SeChrome
@@ -163,3 +168,4 @@ Describe -Tag "UI","Public" -Name "Home" {
 #     sleep 1
 # }
 # $driver.FindElementByName('q')
+}
