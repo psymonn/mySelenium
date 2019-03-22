@@ -2,14 +2,15 @@
 param (
     [Parameter(Mandatory=$true)]
     [String]$browser,
-    [String]$source
+    [String]$source,
+    [String]$output
  )
  
  Try {
  
      Write-verbose "Executing Pester tests"
                           
-     Invoke-Pester -verbose -OutputFile ${browser}.xml  -OutputFormat NUnitXml -EnableExit -Script @{ Path = $source; Parameters = @{browser = $browser;};}
+     Invoke-Pester -verbose -OutputFile $outFile  -OutputFormat NUnitXml -EnableExit -Script @{ Path = $source; Parameters = @{browser = $browser;};}
         
  }
  Catch {
