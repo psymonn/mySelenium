@@ -62,7 +62,7 @@ Describe -Tag "UI","Public" -Name "Home" {
             
             (Find-SeElement -Driver $script:driver -Name "q").SendKeys("lookups")
             #(Find-SeElement -Driver $script:driver -Name "btnk").Submit() | Out-File "C:\Data\Git\Selenium\GoogleSearchResults.html" -Force
-         #   (Find-SeElement -Driver $script:driver -Name "btnk").Submit()
+           # (Find-SeElement -Driver $script:driver -Name "btnk").Submit()
             
             #Wait-UntilElementLoaded -Driver $script:driver -ClassName "navbar-brand"
           
@@ -76,7 +76,7 @@ Describe -Tag "UI","Public" -Name "Home" {
             
             #$firstResult = Find-SeElement -Driver $script:driver -XPath "//div[@id='service-small-info-1']/div[@class='highlights']"
 
-            $firstResult.Text | Should Match "/classifications \(Get\)"
+            #$firstResult.Text | Should Match "/classifications \(Get\)"
 
 
 
