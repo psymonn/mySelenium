@@ -1,7 +1,7 @@
 ﻿[CmdletBinding()]
 param (
     [Parameter(Mandatory=$true)]
-    [String]$IISSite,
+    [String]$browser,
     [String]$source,
     [String]$outFile
  )
@@ -10,7 +10,7 @@ param (
  
      Write-verbose "Executing Pester tests"
                           
-     Invoke-Pester -verbose -OutputFile $outFile -OutputFormat NUnitXml -EnableExit -Script @{ Path = $source; Parameters = @{browser = $IISSite;};}
+     Invoke-Pester -verbose -OutputFile $outFile -OutputFormat NUnitXml -EnableExit -Script @{ Path = $source; Parameters = @{browser = $browser;};}
         
  }
  Catch {
