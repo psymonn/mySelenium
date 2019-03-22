@@ -3,7 +3,7 @@ param (
     [Parameter(Mandatory=$true)]
     [String]$browser,
     [String]$source,
-    [String]$output
+    [String]$outFile
  )
  
  Try {
