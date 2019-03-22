@@ -35,9 +35,10 @@ if(-not $global:RunningInvokePester) {
 	#Import-Module SeleniumExtensions
 	Import-Module Selenium
     Import-Module Pester
-    . $PSScriptRoot\Wait-UntilElementLoaded.ps1
+    #. $PSScriptRoot\Wait-UntilElementLoaded.ps1
     #import-Module $PSScriptRoot\PSSelenium\Selenium.psm1
-    import-Module C:\Data\Git\Selenium\PSSelenium\Selenium.psm1
+    #import-Module C:\Data\Git\Selenium\PSSelenium\Selenium.psm1
+    import-module PSSelenium
 }
 
 
