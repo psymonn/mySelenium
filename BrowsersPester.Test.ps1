@@ -1,7 +1,5 @@
-Function TestBrowsersPester{
-	#param($browser)
-param(
-   [String] $browser
+param (
+    [String]$browser
 )
 
 # Describe "ValidateWebSite" {
@@ -54,9 +52,9 @@ Describe -Tag "UI","Public" -Name "$browser" {
         BeforeAll {
             if($Environment -eq "prod") {
             $script:url = "https://somesite.{env}.subgroup.domain.com" -f $Environment
-        } else {
-        $script:url = "https://www.google.com"
-        }
+            } else {
+                $script:url = "https://www.google.com"
+            }
 
             #$script:driver = Start-SeChrome
             $script:driver = Start-SeChrome -Arguments "headless", "incognito"
@@ -168,4 +166,3 @@ Describe -Tag "UI","Public" -Name "$browser" {
 #     sleep 1
 # }
 # $driver.FindElementByName('q')
-}
