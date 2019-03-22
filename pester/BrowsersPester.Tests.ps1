@@ -48,7 +48,7 @@ if(-not $global:RunningInvokePester) {
 
 Describe -Tag "UI","Public" -Name "$browser" {
     
-    Context "$browser -> Simple Search 1" {
+    Context "$browser Simple Search 1" {
         BeforeAll {
             if($Environment -eq "prod") {
             $script:url = "https://somesite.{env}.subgroup.domain.com" -f $Environment
@@ -60,7 +60,7 @@ Describe -Tag "UI","Public" -Name "$browser" {
             $script:driver = Start-SeChrome -Arguments "headless", "incognito"
         }
         
-        It "$browser -> Search - Returns Results" {
+        It "$browser Search - Returns Results" {
             Enter-SeUrl -Driver $script:driver -Url $script:url
             
             (Find-SeElement -Driver $script:driver -Name "q").SendKeys("lookups")
@@ -91,7 +91,7 @@ Describe -Tag "UI","Public" -Name "$browser" {
         }
     }
 
-    Context "$browser -> Simple Search 2 " {
+    Context "$browser Simple Search 2 " {
         BeforeAll {
             $script:url = "https://www.bing.com"
             $script:driver = Start-SeChrome
@@ -99,7 +99,7 @@ Describe -Tag "UI","Public" -Name "$browser" {
             #Open-WebPage  "www.bing.com"
         }
         
-        It "$browser -> ShouldFindCheesecakeFactoryByNameInBingSearch" {
+        It "$browser Should Find CheesecakeFactory ByNameInBingSearch" {
             Enter-SeUrl -Driver $script:driver -Url $script:url
             #Wait total of 30sec to find element by Css selector, further validate element exist in DOM 
             #Wait-UntilElementVisible -Selector Css -Value "#sb_form_q"
