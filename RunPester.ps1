@@ -10,7 +10,7 @@ param (
  
      Write-verbose "Executing Pester tests"
                           
-     Invoke-Pester -verbose -OutputFile $outFile  -OutputFormat NUnitXml -EnableExit -Script @{ Path = $source; Parameters = @{browser = $browser;};}
+     Invoke-Pester -verbose -OutputFile $outFile -OutputFormat NUnitXml -EnableExit -Script @{ Path = $source; Parameters = @{browser = $browser;};}
         
  }
  Catch {
