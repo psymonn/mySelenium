@@ -1,0 +1,8 @@
+classname = css class name
+id = most useful
+name = variable name
+tagname = name of tag e.g table or anchor
+cssselector = advance way (use to change the apparence of the element)
+linkText = getting a link - name of that link text
+partialinktext = getting partial name of the linktext
+xpath = advance one - most option.
