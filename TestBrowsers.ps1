@@ -27,7 +27,7 @@ try{
 	$MicrosoftWebDriver = "C:\Data\Git\Selenium\lib40";
 
 	<# Selenium Grid HubのURL #>
-	$selenium_grid_hub = New-Object System.Uri("http://eucdevjnk01:4444/wd/hub")
+	$selenium_grid_hub = New-Object System.Uri("http://eucdevjnk02:4444/wd/hub")
 
 	switch ($browser)
 	{
