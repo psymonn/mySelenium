@@ -1,8 +1,10 @@
-. .\selenium_common.psm1
+#. .\selenium_common.psm1
 
 
 # File Test.ps1:
+cd "f:\GitHub\Source\powershell_selenium\powershell\"
 Import-Module -Name .\Selenium_utils.psd1 -Force
+
 #import-module -name .\selenium_common.psm1 -force
 
 $VerbosePreference = 'continue'
