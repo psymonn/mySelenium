@@ -24,7 +24,17 @@ Describe "Cheesecake Factory" {
         #write-host "fb :" $fb
         #write-host "fb2 : $fb2"
 
+        $linkText = Find-SeElement -Driver $Driver -LinkText "Contact Us"
+        write-host "linkText" : $linkText
+
+
+
+        #$linkText.Click
+        #Invoke-SeClick -Element $linkText
+
+
         $Driver.title | Should Be 'Welcome to The Cheesecake Factory'
+
 
         # $Driver = Start-SeChrome
         # Enter-SeUrl https://www.google.com/ -Driver $Driver
