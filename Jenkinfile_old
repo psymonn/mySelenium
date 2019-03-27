@@ -1,0 +1,74 @@
+node {
+    //notify('Started')
+    
+    try {
+        stage('checkout') {
+            timeout(time:2, unit:'MINUTES') {
+                git 'https://github.com/psymonn/mySelenium.git'
+            }
+        }
+        
+        stage 'execute, testing'
+        powershell 'Write-Output "Hello, World!"'
+        
+        //stash is a temporary archive during pipepline
+        stash name: 'everything',
+            excludes: '.git/**',
+            includes: '**'
+        
+        
+    } catch (err) {
+        
+        notify("Error ${err}")
+        currentBuild.result = 'FAILURE'
+    }
+    
+    stage 'archival'
+        archiveArtifacts '*.ps1'
+        
+    // notify('Success')
+ }
+
+
+//parallel integration testing
+stage 'Browser Testing'
+parallel chrome: {
+    runTests("Chrome2")
+}, firefox: {
+        runTests("Firefox")
+}, ie: {
+        runTests("ie 64")
+}
+
+def runTests(browser) {
+    node {
+//        bat 'del /S /Q *'
+//        unstash 'everything'
+        //${browser}
+        echo "browser = ${browser}"
+		//PowerShell(". '.\\Program Files (x86)\\Jenkins\\workspace\\Parallel cross browsers test1 pipeline 3\\TestBrowsers.ps1'; TestBrowsers -Arg \"${browser}\"")
+		PowerShell(". '.\\Program Files (x86)\\Jenkins\\workspace\\Parallel cross browsers test1 pipeline 3\\TestBrowsers.ps1'; TestBrowsers -Arg \"Firefox\"")
+        //bat "npm run test-single-run -- --browsers ${browser}"
+        //step([$class: 'JunitResultArchiver',
+        //    testResults: 'test-results/**/test-results.xml'])
+        
+    }    
+}
+    
+def notify(status){
+    emailext (
+      to: "psymon.ng@gmail.com",
+      subject: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+      body: """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+        <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+    )
+}
+
+def PowerShell(psCmd) {
+    bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';$psCmd;EXIT \$global:LastExitCode\""
+}
+
+def PowerShell2(psCmd) {
+    psCmd=psCmd.replaceAll("%", "%%")
+    bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$psCmd;EXIT \$global:LastExitCode\""
+}

@@ -1,74 +1,136 @@
-node {
-    //notify('Started')
+// Config
+class Globals {
+   static String GitRepo = 'https://github.com/psymonn/mySelenium.git'
+   static String ModuleName = 'mySelenium'
+   static String eMail = 'simon.nguyen4_priv@eucdev.local'
+   static String Url = 'https://dev52858.service-now.com'
+}
+
+// Workflow Steps
+node('win12') {
+  try {
+//    checkout scm
+
+    notifyBuild('STARTED')
     
-    try {
-        stage('checkout') {
-            timeout(time:2, unit:'MINUTES') {
-                git 'https://github.com/psymonn/mySelenium.git'
-            }
+       stage('GetUserCredential') {
+        // Requires Credential setup (MyCredentialID)
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'b04cec1b-1fb2-480b-a69d-2df098194808',
+                          usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+
+            //This test shown that the credential is encrypted by Jenkins
+            echo "password is $PASSWORD"
+            echo "username is $USERNAME"
+            env.RMT_PASSWORD = PASSWORD
+            env.RMT_USERNAME = USERNAME
+            env.RMT_URL = "${Globals.Url}"
+            echo "env.RMT_PASSWORD = $env:RMT_USERNAME"
+            echo "env.RMT_USERNAME = $env:RMT_PASSWORD"
+            echo "env.RMT_URL = $env:RMT_URL"
+            //echo "global url = ${Globals.Url}"
+            
         }
         
-        stage 'execute, testing'
-        powershell 'Write-Output "Hello, World!"'
-        
-        //stash is a temporary archive during pipepline
-        stash name: 'everything',
-            excludes: '.git/**',
-            includes: '**'
-        
-        
-    } catch (err) {
-        
-        notify("Error ${err}")
-        currentBuild.result = 'FAILURE'
     }
     
-    stage 'archival'
-        archiveArtifacts '*.ps1'
-        
-    // notify('Success')
- }
+    properties([
+      parameters([
+        string(name: 'requestID', defaultValue: 'REQ323456', description: 'ServiceNow RequestID', )
+       ])
+    ])
 
+    stage('Stage 0: Clone') {
+      git url: Globals.GitRepo
+    }
+    
+    //stash is a temporary archive during pipepline
+    stash name: 'everything',
+         excludes:  '**/.git,**/.git/**'
+         includes: '**'
+		 
+	parallel (
+		chrome: {
+		    stage('Chrome'){
+    			node('Agent1_browsers_node') {
+    				runTests("GoogleChromeGrid")
+    			}
+		    }
+		}, firefox: {
+		    stage('Firefox'){
+			    node('Agent2_browsers_node') {    
+				    runTests("MozillaFirefoxGrid")
+			     }
+		    }
+		}, ie: {
+			node('Agent2_browsers_node') {
+			    stage('ie'){
+				    runTests("InternetExplorerGrid")
+			    }
+			}
+		}
+	)
 
-//parallel integration testing
-stage 'Browser Testing'
-parallel chrome: {
-    runTests("Chrome2")
-}, firefox: {
-        runTests("Firefox")
-}, ie: {
-        runTests("ie 64")
+	
+   
+  } catch (e) {
+    currentBuild.result = "FAILED"
+    throw e
+  } finally {
+    
+    
+    // echo 'jobname is ${JOB_NAME}'
+    // echo 'build num is ${BUILD_NUMBER}'
+       echo 'request id ${params.requestID}'
+    
+    powershell '&("C:\\Program Files\\Python37\\python.exe") C:\\Data\\Scripts\\Python\\publish_jenkins_results.py $Env:JOB_NAME $Env:BUILD_ID $env:requestID $env:RMT_USERNAME $env:RMT_PASSWORD $env:RMT_URL'
+    
+    //notifyBuild(currentBuild.result)
+  }
 }
+
 
 def runTests(browser) {
-    node {
-//        bat 'del /S /Q *'
-//        unstash 'everything'
-        //${browser}
-        echo "browser = ${browser}"
-		//PowerShell(". '.\\Program Files (x86)\\Jenkins\\workspace\\Parallel cross browsers test1 pipeline 3\\TestBrowsers.ps1'; TestBrowsers -Arg \"${browser}\"")
-		PowerShell(". '.\\Program Files (x86)\\Jenkins\\workspace\\Parallel cross browsers test1 pipeline 3\\TestBrowsers.ps1'; TestBrowsers -Arg \"Firefox\"")
-        //bat "npm run test-single-run -- --browsers ${browser}"
-        //step([$class: 'JunitResultArchiver',
-        //    testResults: 'test-results/**/test-results.xml'])
-        
-    }    
+//	node {
+		bat 'del /S /Q *'
+		unstash 'everything'
+	 
+		echo "browser = ${browser}"
+			//PowerShell(". '.\\TestBrowsersPester.ps1'; TestBrowsersPester -browser \"${browser}\"")
+		
+			//PowerShell("Invoke-Pester .\\TestBrowsersPester.ps1 -OutputFile ${browser}.xml -OutputFormat NUnitXml")
+			
+			//PowerShell("Invoke-Pester -verbose -OutputFile ${browser}.xml  -OutputFormat NUnitXml -EnableExit -Script @{ Path = ./; Parameters = @{browser = $browser;};}")
+			PowerShell(".\\RunPester.ps1 -browser ${browser} -Source .\\Pester -Outfile ${browser}.xml")
+			//powershell returnStatus: true, script: '.\\RunPester.ps1 -Source "C:\\Program Files (x86)\\Jenkins\\workspace\\WebSite pipeline TFS" -IISRoot b -Outfile Test-1.xml -IISSite PKI -IISPool PKI -Target  "eucdevapp02" -verbose; exit $lastexitcode'
+			
+			
+			step([$class: 'NUnitPublisher',
+			testResultsPattern: '**\\*.xml',
+			debug: false,
+			keepJUnitReports: true,
+			skipJUnitArchiver:false,
+			failIfNoResults: true
+		  ])
+		
+//	}    
 }
-    
-def notify(status){
-    emailext (
-      to: "psymon.ng@gmail.com",
-      subject: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
-    )
+
+// Helper function to run PowerShell Commands
+def posh(cmd) {
+  bat 'powershell.exe -NonInteractive -NoProfile -ExecutionPolicy Bypass -Command "& ' + cmd + '"'
 }
 
 def PowerShell(psCmd) {
     bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';$psCmd;EXIT \$global:LastExitCode\""
 }
 
-def PowerShell2(psCmd) {
-    psCmd=psCmd.replaceAll("%", "%%")
-    bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$psCmd;EXIT \$global:LastExitCode\""
+// eMail Notification
+def notifyBuild(status){
+    status = status ?: 'SUCCESSFUL'
+    emailext (
+      to: "${Globals.eMail}",
+      subject: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+      body: """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+               <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+    )
 }
