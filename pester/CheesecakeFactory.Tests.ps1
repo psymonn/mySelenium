@@ -6,7 +6,8 @@ Describe "$browser Cheesecake Factory" {
     #Import-Module (Join-Path $PSScriptRoot "Selenium.psm1")
     Import-Module Selenium
     Context "Should Find Cheesecake Factory In BingSearch" {
-        $Driver = Start-SeFirefox
+        #$Driver = Start-SeFirefox
+        $Driver = Start-SeChrome
         Enter-SeUrl -Driver $Driver -Url "http://www.bing.com"
         $Element = Find-SeElement -Driver $Driver -Id "sb_form_q"
         Send-SeKeys -Element $Element -Keys "the cheesecake factory"
