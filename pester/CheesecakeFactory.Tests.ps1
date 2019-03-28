@@ -1,6 +1,10 @@
-Import-Module (Join-Path $PSScriptRoot "Selenium.psm1")
+param (
+    [String]$browser
+)
 
-Describe "Cheesecake Factory" {
+Describe "$browser Cheesecake Factory" {
+    #Import-Module (Join-Path $PSScriptRoot "Selenium.psm1")
+    Import-Module Selenium
     Context "Should Find Cheesecake Factory In BingSearch" {
         $Driver = Start-SeFirefox
         Enter-SeUrl -Driver $Driver -Url "http://www.bing.com"
