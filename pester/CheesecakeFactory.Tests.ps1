@@ -38,7 +38,7 @@ Describe "$browser Cheesecake Factory" {
 
 
         $Driver.title | Should Be 'Welcome to The Cheesecake Factory'
-
+        Stop-SeDriver -Driver $Driver
 
         # $Driver = Start-SeChrome
         # Enter-SeUrl https://www.google.com/ -Driver $Driver
@@ -58,6 +58,7 @@ Describe "$browser Cheesecake Factory" {
 #         write-host $Driver
 #         Get-SeCookie $Driver
      }
+    
 }
 
 
