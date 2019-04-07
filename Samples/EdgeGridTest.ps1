@@ -37,7 +37,7 @@ popd
 #var edgeOptions = new EdgeOptions();
 #driver = new EdgeDriver(edgeService, edgeOptions);
 
-    $selenium_grid_hub = New-Object System.Uri("http://192.168.0.7:4445/wd/hub")
+    $selenium_grid_hub = New-Object System.Uri("http://172.0.0.1:4444/wd/hub")
 
     $capability = New-Object OpenQA.Selenium.Remote.DesiredCapabilities;
     $capability.SetCapability("browserName", "MicrosoftEdge");
